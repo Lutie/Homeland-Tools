@@ -1,0 +1,28 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}{{ parent() }} - Inscription{% endblock %}
+
+{% block body %}
+
+    <h1> Inscription </h1>
+
+    {% include('inc/vertical-line.html.twig') %}
+
+    {{ form_start(form) }}
+    <div class="row">
+        <div class="offset-4 col-4"> {{ form_row(form.username) }} </div>
+    </div>
+    <div class="row">
+        <div class="offset-4 col-4"> {{ form_row(form.login) }} </div>
+    </div>
+    <div class="row">
+        <div class="offset-3 col-3"> {{ form_row(form.rawPassword.first) }} </div>
+        <div class="col-3"> {{ form_row(form.rawPassword.second) }} </div>
+    </div>
+    <div class="row">
+        <div class="offset-4 col-4"> {{ form_row(form.email) }} </div>
+    </div>
+    <button type="submit" class="btn btn-primary offset-5 col-2">Valider</button>
+    {{ form_end(form) }}
+
+{% endblock %}

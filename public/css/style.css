@@ -1,0 +1,7 @@
+.vertical-line {
+    width: 96%;
+    height: 1px;
+    background-color: black;
+    opacity: .33;
+    margin-left: 2%;
+}

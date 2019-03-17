@@ -1,0 +1,33 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}{{ parent() }} - Connexion{% endblock %}
+
+{% block body %}
+    {% if error %}
+        <p class="alert alert-danger">{{ error.messageKey|trans(error.messageData, 'security') }}</p>
+    {% endif %}
+
+    <h1> Connexion </h1>
+
+    {% include('inc/vertical-line.html.twig') %}
+
+    <form method="post">
+
+        <div class="row">
+            <div class="form-group offset-4 col-4">
+                <label class="control-label" for="username">Identifiant</label>
+                <input class="form-control" id="username" name="_username" value="{{ username }}">
+            </div>
+        </div>
+
+        <div class="row">
+            <div class="form-group offset-4 col-4">
+                <label class="control-label" for="password">Mot de passe</label>
+                <input class="form-control" type="password" id="password" name="_password">
+            </div>
+        </div>
+
+        <button type="submit" class="btn btn-primary offset-5 col-2">Connexion</button>
+
+    </form>
+{% endblock %}

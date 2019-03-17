@@ -1,0 +1,32 @@
+security:
+
+    role_hierarchy:
+        ROLE_ADMIN: [ ROLE_USER ]
+
+    providers:
+        users:
+            entity:
+                class: App\Entity\User
+                property: username
+
+    encoders:
+        App\Entity\User: 'bcrypt'
+
+    firewalls:
+        dev:
+            pattern: ^/(_(profiler|wdt)|css|images|js)/
+            security: false
+        main:
+            anonymous: true
+
+            form_login:
+                login_path: app_security_redirect
+                check_path: app_security_login
+                default_target_path: app_security_hello
+            logout:
+                path: app_security_logout
+                target: app_security_bye
+
+    access_control:
+        # - { path: ^/admin, roles: ROLE_ADMIN }
+        # - { path: ^/profile, roles: ROLE_USER }

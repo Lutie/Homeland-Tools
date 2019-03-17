@@ -1,0 +1,31 @@
+{% set route = app.request.attributes.get('_route') %}
+
+<nav class="navbar navbar-expand-lg bg-dark navbar-dark">
+    <a class="navbar-brand" href="{{ path('app_default_index') }}">TerreNatale</a>
+
+    <ul class="navbar-nav ml-auto">
+        {% if is_granted('IS_AUTHENTICATED_REMEMBERED') %}
+            <li class="nav-item">
+                <a class="nav-link" href="">{{ app.user.getUsername }} (Utilisateur)</a>
+            </li>
+        {% endif %}
+        <li class="nav-item {{ route == 'app_security_login' ? 'active' }}">
+            {% if is_granted('IS_AUTHENTICATED_REMEMBERED') %}
+                <a class="nav-link" href="{{ path('app_security_logout') }}">Déconnexion</a>
+            {% else %}
+                <a class="nav-link" href="{{ path('app_security_login') }}">Connexion</a>
+            {% endif %}
+        </li>
+        {% if is_granted('ROLE_USER') == false %}
+            <li class="nav-item {{ route == 'app_security_signup' ? 'active' }}">
+                <a class="nav-link" href="{{ path('app_security_signup') }}">Inscription</a>
+            </li>
+        {% endif %}
+        {% if is_granted('ROLE_ADMIN') %}
+            <li class="nav-item {{ route starts with 'app_admin_' ? 'active' }}">
+                <a class="nav-link" href="{{ path('app_admin_index') }}">Administration</a>
+            </li>
+        {% endif %}
+    </ul>
+
+</nav>
