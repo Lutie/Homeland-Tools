@@ -8,6 +8,7 @@ use Symfony\Component\Validator\Constraints as Assert;
 
 /**
  * @ORM\Entity()
+ * @ORM\Table(name="stuff")
  */
 class Stuff
 {
@@ -17,10 +18,9 @@ class Stuff
     use NameTrait;
 
     /**
-     * @ORM\Column(type="string", length=20)
-     * Values : "Weapon", "Armor", "Tools"
+     * @ORM\ManyToOne(targetEntity="StuffType", inversedBy="stuff")
      */
-    private $type = "n/a";
+    private $type;
 
     use DescriptionTrait;
 
@@ -57,21 +57,30 @@ class Stuff
     private $weight = 0;
 
     /**
+     * @ORM\Column(type="integer", length=5)
+     * @Assert\NotNull()
+     * @Assert\Type("integer")
+     * @Assert\Range( min = -1, max = 1 )
+     * Note : -1 for no metal stuff, 0 for hybrid stuff, 1 for full metal stuff
+     */
+    private $shape = 0;
+
+    /**
      * @ORM\ManyToOne(targetEntity="StuffFamily", inversedBy="stuff")
-     * @ORM\Column(nullable=true)
+     * @ORM\JoinColumn(nullable=true)
      */
     private $family;
 
     /**
      * @ORM\ManyToMany(targetEntity="StuffParticularity")
-     * @ORM\Column(nullable=true)
+     * @ORM\JoinColumn(nullable=true)
      */
     private $particularities;
 
     /**
-     * @ORM\Column(type="integer", length=10)
+     * @ORM\Column(type="boolean")
      */
-    private $price = 0;
+    private $armorIsAdvanced = false;
 
     /**
      * @ORM\Column(type="string", length=10, nullable=true)
@@ -187,22 +196,6 @@ class Stuff
     /**
      * @return mixed
      */
-    public function getPrice()
-    {
-        return $this->price;
-    }
-
-    /**
-     * @param mixed $price
-     */
-    public function setPrice($price): void
-    {
-        $this->price = $price;
-    }
-
-    /**
-     * @return mixed
-     */
     public function getWeaponGrip()
     {
         return $this->weaponGrip;
@@ -257,4 +250,37 @@ class Stuff
 
         return $this;
     }
+
+    /**
+     * @return mixed
+     */
+    public function getShape()
+    {
+        return $this->shape;
+    }
+
+    /**
+     * @param mixed $shape
+     */
+    public function setShape($shape): void
+    {
+        $this->shape = $shape;
+    }
+
+    /**
+     * @return mixed
+     */
+    public function getArmorIsAdvanced()
+    {
+        return $this->armorIsAdvanced;
+    }
+
+    /**
+     * @param mixed $armorIsAdvanced
+     */
+    public function setArmorIsAdvanced($armorIsAdvanced): void
+    {
+        $this->armorIsAdvanced = $armorIsAdvanced;
+    }
+
 }

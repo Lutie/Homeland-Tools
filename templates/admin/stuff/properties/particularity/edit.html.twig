@@ -1,0 +1,39 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}{{ parent() }} - Particularité d'équipement{% endblock %}
+
+{% block body %}
+    <h1>{{ stuffParticularity.id ? 'Modifier' : 'Créer' }}
+        {{ stuffParticularity.name ? 'la' : 'une' }} particularité
+        {{ stuffParticularity.name ? ' : ' ~ stuffParticularity.name : '' }}</h1>
+
+    {% include('inc/vertical-line.html.twig') %}
+    {% include('admin/stuff/_menu.html.twig') %}
+    {% include('inc/vertical-line.html.twig') %}
+
+    {{ form_start(form) }}
+    <div class="row">
+        <div class="col-3"> {{ form_row(form.name) }} </div>
+    </div>
+    <div class="row">
+        <div class="col-2"> {{ form_row(form.effectOnScore) }} </div>
+        <div class="col-2"> {{ form_row(form.effectOnAttackScore) }} </div>
+        <div class="col-2"> {{ form_row(form.effectOnDefenseScore) }} </div>
+        <div class="col-2"> {{ form_row(form.effectOnTacticalScore) }} </div>
+        <div class="col-2"> {{ form_row(form.effectOnHardness) }} </div>
+        <div class="col-2"> {{ form_row(form.effectOnReach) }} </div>
+        <div class="col-2"> {{ form_row(form.effectOnSpeed) }} </div>
+        <div class="col-2"> {{ form_row(form.effectOnQuickness) }} </div>
+        <div class="col-2"> {{ form_row(form.effectOnPrice) }} </div>
+        <div class="col-2"> {{ form_row(form.effectOnWeight) }} </div>
+        <div class="col-2"> {{ form_row(form.effectOnPenality) }} </div>
+        <div class="col-2"> {{ form_row(form.effectOnCounterAttackScore) }} </div>
+        <div class="col-2"> {{ form_row(form.effectOnAdversaryDefenseScore) }} </div>
+    </div>
+    <div class="row">
+        <div class="col-12"> {{ form_row(form.description) }} </div>
+    </div>
+    <button type="submit" class="btn btn-primary offset-5 col-2 mb-5">{{ stuffParticularity.id ? 'Modifier' : 'Créer' }}</button>
+    {{ form_end(form) }}
+
+{% endblock %}

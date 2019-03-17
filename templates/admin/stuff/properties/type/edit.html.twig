@@ -1,0 +1,25 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}{{ parent() }} - Type d'équipement{% endblock %}
+
+{% block body %}
+    <h1>{{ stuffType.id ? 'Modifier' : 'Créer' }}
+        {{ stuffType.name ? 'le' : 'un' }} type
+        {{ stuffType.name ? ' : ' ~ stuffType.name : '' }}</h1>
+
+    {% include('inc/vertical-line.html.twig') %}
+    {% include('admin/stuff/_menu.html.twig') %}
+    {% include('inc/vertical-line.html.twig') %}
+
+    {{ form_start(form) }}
+    <div class="row">
+        <div class="col-3"> {{ form_row(form.name) }} </div>
+        <div class="col-2"> {{ form_row(form.price) }} </div>
+    </div>
+    <div class="row">
+        <div class="col-12"> {{ form_row(form.description) }} </div>
+    </div>
+    <button type="submit" class="btn btn-primary offset-5 col-2 mb-5">{{ stuffType.id ? 'Modifier' : 'Créer' }}</button>
+    {{ form_end(form) }}
+
+{% endblock %}

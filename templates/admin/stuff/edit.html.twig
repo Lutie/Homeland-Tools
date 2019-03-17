@@ -1,0 +1,50 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}{{ parent() }} - Equipement{% endblock %}
+
+{% block body %}
+    <h1>{{ stuff.id ? 'Modifier' : 'Créer' }}
+        {{ stuff.name ? 'l\'' : 'un' }} équipement
+        {{ stuff.name ? ' : ' ~ stuff.name : '' }}</h1>
+
+    {% include('inc/vertical-line.html.twig') %}
+    {% include('admin/stuff/_menu.html.twig') %}
+    {% include('inc/vertical-line.html.twig') %}
+
+    {{ form_start(form) }}
+    <h4 class="text-center">Tous équipement</h4>
+    <div class="row">
+        <div class="col-3"> {{ form_row(form.name) }} </div>
+        <div class="col-3"> {{ form_row(form.type) }} </div>
+        <div class="col-3"> {{ form_row(form.category) }} </div>
+        <div class="col-3"> {{ form_row(form.family) }} </div>
+        <div class="col-3"> {{ form_row(form.particularities) }} </div>
+        <div class="col-3"> {{ form_row(form.height) }} </div>
+        <div class="col-3"> {{ form_row(form.weight) }} </div>
+        <div class="col-3"> {{ form_row(form.shape) }} </div>
+    </div>
+    <div class="row">
+        <div class="col-12"> {{ form_row(form.description) }} </div>
+    </div>
+
+    {% include('inc/vertical-line.html.twig') %}
+
+    <div class="row">
+        <div class="col-6">
+            <h4 class="text-center">Armes uniquement</h4>
+            <div class="row">
+                <div class="col-6"> {{ form_row(form.weaponGrip) }} </div>
+                <div class="col-6"> {{ form_row(form.weaponKind) }} </div>
+            </div>
+        </div>
+        <div class="col-6">
+            <h4 class="text-center">Armures uniquement</h4>
+            <div class="row">
+                <div class="col-6"> {{ form_row(form.armorIsAdvanced) }} </div>
+            </div>
+        </div>
+    </div>
+    <button type="submit" class="btn btn-primary offset-5 col-2 mb-5">{{ stuff.id ? 'Modifier' : 'Créer' }}</button>
+    {{ form_end(form) }}
+
+{% endblock %}

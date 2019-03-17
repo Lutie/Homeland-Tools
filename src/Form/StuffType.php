@@ -1,0 +1,29 @@
+<?php
+
+namespace App\Form;
+
+use Symfony\Component\Form\AbstractType;
+use Symfony\Component\Form\Extension\Core\Type\IntegerType;
+use Symfony\Component\Form\Extension\Core\Type\TextType;
+use Symfony\Component\Form\FormBuilderInterface;
+
+class StuffType extends AbstractType
+{
+
+    public function buildForm(FormBuilderInterface $builder, array $option)
+    {
+        $builder
+            ->add('name', TextType::class, [
+                'label' => 'Nom',
+            ])
+            ->add('description', TextType::class, [
+                'label' => 'Description (faculatif)',
+                'required' => false,
+            ])
+            ->add('price', IntegerType::class, [
+                'label' => 'Modificateur de Prix',
+            ])
+        ;
+    }
+
+}

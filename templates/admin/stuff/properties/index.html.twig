@@ -1,0 +1,110 @@
+{% extends 'base.html.twig' %}
+
+{% set security_token = csrf_token('HOMELAND_TOKEN') %}
+
+{% block title %}{{ parent() }} - Equipements{% endblock %}
+
+{% block body %}
+    <h1> Propriétés des équipements </h1>
+
+    {% include('inc/vertical-line.html.twig') %}
+    {% include('admin/stuff/_menu.html.twig') %}
+    {% include('inc/vertical-line.html.twig') %}
+
+    <h4 class="text-center">Type(s) d'équipement</h4>
+
+    <div class="table-responsive table-hover">
+        <table class="table table-bordered table-striped">
+
+            <thead>
+                <td>Nom</td>
+                <td>Description</td>
+                <td></td>
+                <td></td>
+            </thead>
+
+            <tbody>
+            {% for stuffType in stuffTypes %}
+                <tr>
+                    <td>{{ stuffType.name }}</td>
+                    <td class="col-7">{{ stuffType.description }}</td>
+                    <td class="col-1">
+                        <a href="{{ path('app_admin_stuff_stufftype_update', {id:stuffType.id, token:security_token}) }}"
+                           class="btn btn-warning btn-block"><i class="fas fa-recycle"></i></a></td>
+                    <td class="col-1">
+                        <a href="{{ path('app_admin_stuff_stufftype_delete', {id:stuffType.id, token:security_token}) }}"
+                           class="btn btn-danger btn-block"><i class="fas fa-trash-alt"></i></a></td>
+                </tr>
+            {% endfor %}
+            </tbody>
+        </table>
+        {% if stuffTypes == null %}
+            <p>Pas de type d'équipement à afficher !</p>
+        {% endif %}
+    </div>
+
+    <h4 class="text-center">Famille(s) d'équipement</h4>
+
+    <div class="table-responsive table-hover">
+        <table class="table table-bordered table-striped">
+
+            <thead>
+            <td>Nom</td>
+            <td>Description</td>
+            <td></td>
+            <td></td>
+            </thead>
+
+            <tbody>
+            {% for stuffFamily in stuffFamilies %}
+                <tr>
+                    <td>{{ stuffFamily.name }}</td>
+                    <td class="col-7">{{ stuffFamily.description }}</td>
+                    <td class="col-1">
+                        <a href="{{ path('app_admin_stuff_stufffamily_update', {id:stuffFamily.id, token:security_token}) }}"
+                           class="btn btn-warning btn-block"><i class="fas fa-recycle"></i></a></td>
+                    <td class="col-1">
+                        <a href="{{ path('app_admin_stuff_stufffamily_delete', {id:stuffFamily.id, token:security_token}) }}"
+                           class="btn btn-danger btn-block"><i class="fas fa-trash-alt"></i></a></td>
+                </tr>
+            {% endfor %}
+            </tbody>
+        </table>
+        {% if stuffFamilies == null %}
+            <p>Pas de famille d'équipement à afficher !</p>
+        {% endif %}
+    </div>
+
+    <h4 class="text-center">Particularité(s) d'équipement</h4>
+
+    <div class="table-responsive table-hover">
+        <table class="table table-bordered table-striped">
+
+            <thead>
+            <td>Nom</td>
+            <td>Description</td>
+            <td></td>
+            <td></td>
+            </thead>
+
+            <tbody>
+            {% for stuffParticularity in stuffParticularities %}
+                <tr>
+                    <td>{{ stuffParticularity.name }}</td>
+                    <td class="col-7">{{ stuffParticularity.description }}</td>
+                    <td class="col-1">
+                        <a href="{{ path('app_admin_stuff_stuffparticularity_update', {id:stuffParticularity.id, token:security_token}) }}"
+                           class="btn btn-warning btn-block"><i class="fas fa-recycle"></i></a></td>
+                    <td class="col-1">
+                        <a href="{{ path('app_admin_stuff_stuffparticularity_delete', {id:stuffParticularity.id, token:security_token}) }}"
+                           class="btn btn-danger btn-block"><i class="fas fa-trash-alt"></i></a></td>
+                </tr>
+            {% endfor %}
+            </tbody>
+        </table>
+        {% if stuffParticularities == null %}
+            <p>Pas de particularité d'équipement à afficher !</p>
+        {% endif %}
+    </div>
+
+{% endblock %}

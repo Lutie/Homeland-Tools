@@ -8,6 +8,7 @@ use Symfony\Component\Validator\Constraints as Assert;
 
 /**
  * @ORM\Entity()
+ * @ORM\Table(name="stuff_family")
  */
 class StuffFamily
 {
@@ -20,6 +21,7 @@ class StuffFamily
 
     /**
      * @ORM\OneToMany(targetEntity="Stuff", mappedBy="family")
+     * @ORM\JoinColumn(nullable=true)
      */
     private $stuff;
 
@@ -130,6 +132,11 @@ class StuffFamily
     public function __construct()
     {
         $this->stuff = new ArrayCollection();
+    }
+
+    public function __toString()
+    {
+        return (string)$this->getName();
     }
 
     /**
@@ -345,7 +352,7 @@ class StuffFamily
         return $this->stuff;
     }
 
-    public function removeCharacters(Stuff $stuff)
+    public function removeStuff(Stuff $stuff)
     {
         if ($this->stuff->contains($stuff)) {
             $this->stuff->removeElement($stuff);
@@ -353,7 +360,7 @@ class StuffFamily
         return $this;
     }
 
-    public function addCharacters(Stuff $stuff)
+    public function addStuff(Stuff $stuff)
     {
         if (!$this->stuff->contains($stuff)) {
             $this->stuff->add($stuff);
