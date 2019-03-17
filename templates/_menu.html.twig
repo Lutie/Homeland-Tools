@@ -1,29 +1,42 @@
 {% set route = app.request.attributes.get('_route') %}
 
 <nav class="navbar navbar-expand-lg bg-dark navbar-dark">
-    <a class="navbar-brand" href="{{ path('app_default_index') }}">TerreNatale</a>
+    <a class="navbar-brand position-relative" href="{{ path('app_default_index') }}">
+        <img class="logo position-absolute" src="{{ asset('img/logo.png') }}">
+    </a>
 
     <ul class="navbar-nav ml-auto">
         {% if is_granted('IS_AUTHENTICATED_REMEMBERED') %}
             <li class="nav-item">
-                <a class="nav-link" href="">{{ app.user.getUsername }} (Utilisateur)</a>
+                <a class="nav-link" href="">
+                    <i class="fas fa-user"></i> {{ app.user.getUsername }} (Utilisateur)</a>
             </li>
         {% endif %}
         <li class="nav-item {{ route == 'app_security_login' ? 'active' }}">
             {% if is_granted('IS_AUTHENTICATED_REMEMBERED') %}
-                <a class="nav-link" href="{{ path('app_security_logout') }}">Déconnexion</a>
+                <a class="nav-link" href="{{ path('app_security_logout') }}">
+                    <i class="fas fa-door-closed"></i> Déconnexion</a>
             {% else %}
-                <a class="nav-link" href="{{ path('app_security_login') }}">Connexion</a>
+                <a class="nav-link" href="{{ path('app_security_login') }}">
+                    <i class="fas fa-door-open"></i> Connexion</a>
             {% endif %}
         </li>
         {% if is_granted('ROLE_USER') == false %}
             <li class="nav-item {{ route == 'app_security_signup' ? 'active' }}">
-                <a class="nav-link" href="{{ path('app_security_signup') }}">Inscription</a>
+                <a class="nav-link" href="{{ path('app_security_signup') }}">
+                    <i class="fas fa-clipboard"></i> Inscription</a>
             </li>
         {% endif %}
         {% if is_granted('ROLE_ADMIN') %}
-            <li class="nav-item {{ route starts with 'app_admin_' ? 'active' }}">
-                <a class="nav-link" href="{{ path('app_admin_index') }}">Administration</a>
+            <li class="nav-item dropdown">
+                <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button"
+                   data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                    <i class="fas fa-cogs"></i> Administration
+                </a>
+                <div class="dropdown-menu" aria-labelledby="navbarDropdown">
+                    <a class="dropdown-item" href="{{ path('app_admin_stuff_index') }}">Equipements</a>
+                    <a class="dropdown-item" href="#">[...]</a>
+                </div>
             </li>
         {% endif %}
     </ul>
