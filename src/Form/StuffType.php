@@ -23,6 +23,15 @@ class StuffType extends AbstractType
             ->add('price', IntegerType::class, [
                 'label' => 'Modificateur de Prix',
             ])
+            ->add('addedPriceByWeight', IntegerType::class, [
+                'label' => 'Prix par gabarit',
+            ])
+            ->add('addedPriceByHeight', IntegerType::class, [
+                'label' => 'Prix par taille',
+            ])
+            ->add('addedPriceByShape', IntegerType::class, [
+                'label' => 'Prix si allégé/renforcé',
+            ])
         ;
     }
 

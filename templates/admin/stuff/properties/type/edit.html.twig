@@ -13,8 +13,13 @@
 
     {{ form_start(form) }}
     <div class="row">
-        <div class="col-3"> {{ form_row(form.name) }} </div>
+        <div class="col-4"> {{ form_row(form.name) }} </div>
+    </div>
+    <div class="row">
         <div class="col-2"> {{ form_row(form.price) }} </div>
+        <div class="col-2"> {{ form_row(form.addedPriceByWeight) }} </div>
+        <div class="col-2"> {{ form_row(form.addedPriceByHeight) }} </div>
+        <div class="col-2"> {{ form_row(form.addedPriceByShape) }} </div>
     </div>
     <div class="row">
         <div class="col-12"> {{ form_row(form.description) }} </div>

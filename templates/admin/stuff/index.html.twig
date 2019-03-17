@@ -19,6 +19,8 @@
             <thead>
             <td>Nom</td>
             <td>Description</td>
+            <td>Prix</td>
+            <td>Poids</td>
             <td></td>
             <td></td>
             </thead>
@@ -27,7 +29,9 @@
             {% for stuff in stuffs %}
                 <tr>
                     <td>{{ stuff.name }}</td>
-                    <td class="col-7">{{ stuff.description }}</td>
+                    <td class="col-5">{{ stuff.description }}</td>
+                    <td class="col-1 text-center">{{ stuff | stuffPrice }} <img src="{{ asset('img/price.png') }}"></td>
+                    <td class="col-1 text-center">{{ stuff | stuffWeight }} <img src="{{ asset('img/weight.png') }}"></td>
                     <td class="col-1">
                         <a href="{{ path('app_admin_stuff_update', {id:stuff.id, token:security_token}) }}"
                            class="btn btn-warning btn-block"><i class="fas fa-recycle"></i></a></td>

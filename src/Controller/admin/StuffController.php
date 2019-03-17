@@ -96,4 +96,19 @@ class StuffController extends ToolboxController
         ]);
     }
 
+    /**
+     * @Route("/update/{id}")
+     */
+    public function updateAction(Request $request, Stuff $stuff)
+    {
+        $form = $this->createForm(NewStuffType::class, $stuff);
+
+        $form->handleRequest($request);
+
+        return $this->render('admin/stuff/edit.html.twig', [
+            'form' => $form->createView(),
+            'stuff' => $stuff
+        ]);
+    }
+
 }
