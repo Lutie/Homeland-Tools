@@ -17,12 +17,12 @@ class Stuff
 
     use NameTrait;
 
+    use DescriptionTrait;
+
     /**
      * @ORM\ManyToOne(targetEntity="StuffType", inversedBy="stuff")
      */
     private $type;
-
-    use DescriptionTrait;
 
     /**
      * @ORM\Column(type="integer", length=5)
@@ -31,14 +31,6 @@ class Stuff
      * @Assert\Range( min = 0, max = 9 )
      */
     private $category = 0;
-
-    /**
-     * @ORM\Column(type="integer", length=5)
-     * @Assert\NotNull()
-     * @Assert\Type("integer")
-     * @Assert\Range( min = -6, max = 6 )
-     */
-    private $quality = 0;
 
     /**
      * @ORM\Column(type="integer", length=5)
@@ -78,6 +70,12 @@ class Stuff
     private $particularities;
 
     /**
+     * @ORM\OneToMany(targetEntity="FullStuff", mappedBy="stuff")
+     * @ORM\JoinColumn(nullable=true)
+     */
+    private $fullStuff;
+
+    /**
      * @ORM\Column(type="boolean")
      */
     private $armorIsAdvanced = false;
@@ -95,6 +93,7 @@ class Stuff
     public function __construct()
     {
         $this->particularities = new ArrayCollection();
+        $this->fullStuff = new ArrayCollection();
     }
 
     /**
@@ -127,22 +126,6 @@ class Stuff
     public function setCategory($category): void
     {
         $this->category = $category;
-    }
-
-    /**
-     * @return mixed
-     */
-    public function getQuality()
-    {
-        return $this->quality;
-    }
-
-    /**
-     * @param mixed $quality
-     */
-    public function setQuality($quality): void
-    {
-        $this->quality = $quality;
     }
 
     /**
@@ -281,6 +264,32 @@ class Stuff
     public function setArmorIsAdvanced($armorIsAdvanced): void
     {
         $this->armorIsAdvanced = $armorIsAdvanced;
+    }
+
+    /**
+     * @return mixed $fullStuff
+     */
+    public function getFullStuff()
+    {
+        return $this->particularities;
+    }
+
+    public function addFullStuff(FullStuff $fullStuff)
+    {
+        if (!$this->fullStuff->contains($fullStuff)) {
+            $this->fullStuff->add($fullStuff);
+        }
+
+        return $this;
+    }
+
+    public function removeFullStuff(FullStuff $fullStuff)
+    {
+        if ($this->fullStuff->contains($fullStuff)) {
+            $this->fullStuff->removeElement($fullStuff);
+        }
+
+        return $this;
     }
 
 }

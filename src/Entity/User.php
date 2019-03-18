@@ -2,6 +2,7 @@
 
 namespace App\Entity;
 
+use Doctrine\Common\Collections\ArrayCollection;
 use Doctrine\ORM\Mapping as ORM;
 use Symfony\Component\Validator\Constraints as Assert;
 use Symfony\Bridge\Doctrine\Validator\Constraints\UniqueEntity;
@@ -61,6 +62,12 @@ class User implements UserInterface
     private $isAdmin = false;
 
     /**
+     * @ORM\OneToMany(targetEntity="FullStuff", mappedBy="user")
+     * @ORM\JoinColumn(nullable=true)
+     */
+    private $fullStuff;
+
+    /**
      * @Assert\Type("string")
      * @Assert\Length(min=6, max=128)
      */
@@ -69,6 +76,7 @@ class User implements UserInterface
     public function __construct()
     {
         $this->date = new \DateTime();
+        $this->fullStuff = new ArrayCollection();
     }
 
     public function __toString()
@@ -176,6 +184,32 @@ class User implements UserInterface
     public function setDate($date)
     {
         $this->date = $date;
+    }
+
+    /**
+     * @return mixed $fullStuff
+     */
+    public function getFullStuff()
+    {
+        return $this->fullStuff;
+    }
+
+    public function addFullStuff(FullStuff $fullStuff)
+    {
+        if (!$this->fullStuff->contains($fullStuff)) {
+            $this->fullStuff->add($fullStuff);
+        }
+
+        return $this;
+    }
+
+    public function removeFullStuff(FullStuff $fullStuff)
+    {
+        if ($this->fullStuff->contains($fullStuff)) {
+            $this->fullStuff->removeElement($fullStuff);
+        }
+
+        return $this;
     }
 
 }
