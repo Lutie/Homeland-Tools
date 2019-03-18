@@ -19,9 +19,17 @@
             <thead>
             <td>Nom</td>
             <td>Description</td>
-            <td>Prix</td>
-            <td>Poids</td>
-            <td></td>
+            <td class="text-center">
+                Score d'Attaque<br>
+                Score de Défense<br>
+                Score Tactique<br>
+            </td>
+            <td class="text-center">
+                Poids<br>
+                Pénalités<br>
+                Allonge<br>
+            </td>
+            <td class="text-center">Prix</td>
             <td></td>
             </thead>
 
@@ -29,13 +37,23 @@
             {% for stuff in stuffs %}
                 <tr>
                     <td>{{ stuff.name }}</td>
-                    <td class="col-5">{{ stuff.description }}</td>
-                    <td class="col-1 text-center">{{ stuff | stuffPrice }} <img src="{{ asset('img/price.png') }}"></td>
-                    <td class="col-1 text-center">{{ stuff | stuffWeight }} <img src="{{ asset('img/weight.png') }}"></td>
-                    <td class="col-1">
+                    <td>{{ stuff.description }}</td>
+                    <td class="text-center">
+                        {{ stuff | stuffAttackScore }} <img class="stuff-icon" src="{{ asset('img/attackScore.png') }}"><br>
+                        {{ stuff | stuffDefenseScore }} <img class="stuff-icon" src="{{ asset('img/defenseScore.png') }}"><br>
+                        {{ stuff | stuffTacticalScore }} <img class="stuff-icon" src="{{ asset('img/tacticalScore.png') }}">
+                    </td>
+                    <td class="text-center">
+                        {{ stuff | stuffWeight }} <img class="stuff-icon" src="{{ asset('img/weight.png') }}"><br>
+                        {{ stuff | stuffPenalities }} <img class="stuff-icon" src="{{ asset('img/dice.png') }}"><br>
+                        {{ stuff | stuffRange }} <img class="stuff-icon" src="{{ asset('img/range.png') }}">
+                    </td>
+                    <td class="text-center">
+                        {{ stuff | stuffPrice }} <img class="stuff-icon" src="{{ asset('img/price.png') }}">
+                    </td>
+                    <td>
                         <a href="{{ path('app_admin_stuff_update', {id:stuff.id, token:security_token}) }}"
-                           class="btn btn-warning btn-block"><i class="fas fa-recycle"></i></a></td>
-                    <td class="col-1">
+                           class="btn btn-warning btn-block"><i class="fas fa-recycle"></i></a>
                         <a href="{{ path('app_admin_stuff_delete', {id:stuff.id, token:security_token}) }}"
                            class="btn btn-danger btn-block"><i class="fas fa-trash-alt"></i></a></td>
                 </tr>

@@ -15,11 +15,19 @@ class StuffExtension extends AbstractExtension
         0 => 1, 1 => 3, 2 => 6, 3 => 12, 4 => 25, 5 => 50, 6 => 100
     ];
 
+    const D6_RANGE = 6;
+    const D6_AVERAGE = 3.5;
+
     public function getFilters()
     {
         return [
             new TwigFilter('stuffWeight', [$this, 'stuffWeight']),
             new TwigFilter('stuffPrice', [$this, 'stuffPrice']),
+            new TwigFilter('stuffAttackScore', [$this, 'stuffAttackScore']),
+            new TwigFilter('stuffDefenseScore', [$this, 'stuffDefenseScore']),
+            new TwigFilter('stuffTacticalScore', [$this, 'stuffTacticalScore']),
+            new TwigFilter('stuffRange', [$this, 'stuffRange']),
+            new TwigFilter('stuffPenalities', [$this, 'stuffPenalities']),
         ];
     }
 
@@ -47,6 +55,82 @@ class StuffExtension extends AbstractExtension
         $price += $stuff->getArmorIsAdvanced() * 10; // TODO : to change to a better system
         $price = $price * ($stuff->getCategory() + 1);
         return $price;
+    }
+
+    public function stuffAttackScore(Stuff $stuff)
+    {
+        $dice = 2 + $stuff->getCategory();
+        $dice += $stuff->getFamily()->getEffectOnAttackScore() + $stuff->getFamily()->getEffectOnScore();
+        foreach($stuff->getParticularities() as $particularity) {
+            $dice += $particularity->getEffectOnAttackScore();
+            $dice += $particularity->getEffectOnScore();
+        }
+        $fixe = $stuff->getCategory() + $stuff->getWeight() * 2;
+        $rangeMin = $dice + $fixe;
+        $rangeMax = $dice * self::D6_RANGE + $fixe;
+        $rangeMid = $dice * self::D6_AVERAGE + $fixe;
+
+        return $dice . "d6+" . $fixe . " (" . $rangeMin . "~" . $rangeMax . ") (~". $rangeMid . ")";
+    }
+
+    public function stuffDefenseScore(Stuff $stuff)
+    {
+        $dice = 2 + $stuff->getCategory();
+        $dice += $stuff->getFamily()->getEffectOnDefenseScore() + $stuff->getFamily()->getEffectOnScore();
+        foreach($stuff->getParticularities() as $particularity) {
+            $dice += $particularity->getEffectOnDefenseScore();
+            $dice += $particularity->getEffectOnScore();
+        }
+        $fixe = $stuff->getCategory() + $stuff->getHeight() * 2;
+        $rangeMin = $dice + $fixe;
+        $rangeMax = $dice * self::D6_RANGE + $fixe;
+        $rangeMid = $dice * self::D6_AVERAGE + $fixe;
+
+        return $dice . "d6+" . $fixe . " (" . $rangeMin . "~" . $rangeMax . ") (~". $rangeMid . ")";
+    }
+
+    public function stuffTacticalScore(Stuff $stuff)
+    {
+        $dice = 2 + $stuff->getCategory();
+        $dice += $stuff->getFamily()->getEffectOnTacticalScore() + $stuff->getFamily()->getEffectOnScore();
+        foreach($stuff->getParticularities() as $particularity) {
+            $dice += $particularity->getEffectOnTacticalScore();
+            $dice += $particularity->getEffectOnScore();
+        }
+        $fixe = $stuff->getCategory() + ($stuff->getWeight()>0) * 2 + ($stuff->getHeight()>0) * 2;
+        $rangeMin = $dice + $fixe;
+        $rangeMax = $dice * self::D6_RANGE + $fixe;
+        $rangeMid = $dice * self::D6_AVERAGE + $fixe;
+
+        return $dice . "d6+" . $fixe . " (" . $rangeMin . "~" . $rangeMax . ") (~". $rangeMid . ")";
+    }
+
+    public function stuffRange(Stuff $stuff)
+    {
+        $range = $stuff->getCategory() + $stuff->getHeight() + $stuff->getFamily()->getEffectOnReach();
+        foreach($stuff->getParticularities() as $particularity) {
+            $range += $particularity->getEffectOnReach();
+        }
+        return $range;
+    }
+
+    public function stuffPenalities(Stuff $stuff)
+    {
+        $penalities = $stuff->getCategory() * 2 + $stuff->getHeight() + $stuff->getWeight();
+        $penalities += $stuff->getFamily()->getEffectOnPenality();
+        foreach($stuff->getParticularities() as $particularity) {
+            $penalities += $particularity->getEffectOnPenality();
+        }
+        return $penalities;
+    }
+
+    // TODO : put this in a proper extension for all the fullStuff things
+
+    public function fullStuffPenalities(FullStuff $fullStuff)
+    {
+        $penalities = $this->stuffPenalities($fullStuff->getStuff());
+        $penalities -= $fullStuff->getQuality();
+        return $penalities;
     }
 
     public function fullStuffPrice(FullStuff $fullStuff)
