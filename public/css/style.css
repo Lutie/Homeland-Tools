@@ -27,9 +27,43 @@
 }
 
 .stuff-icon {
-    width: 14px;
+    width: 12px;
 }
 
 .table td, .table th {
     padding: .25rem;
+}
+
+/* Stuff table */
+.s-col-1 { width: calc(100%/24); }
+.s-col-2 { width: calc(100%/12); }
+.s-col-3 { width: calc(100%/8); }
+.s-col-4 { width: calc(100%/6); }
+.s-col-5 { width: calc(100%/5); }
+.s-col-6 { width: calc(100%/4); }
+
+/* Font style */
+
+.normal-text {
+    font-size: 16px;
+}
+
+.smaller-text {
+    font-size: 14px;
+}
+
+.smallest-text {
+    font-size: 12px;
+}
+
+.big-text {
+    font-size: 20px;
+}
+
+.biggest-text {
+    font-size: 22px;
+}
+
+.light-text {
+    color: grey;
 }

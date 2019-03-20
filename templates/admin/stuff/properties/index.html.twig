@@ -1,7 +1,5 @@
 {% extends 'base.html.twig' %}
 
-{% set security_token = csrf_token('HOMELAND_TOKEN') %}
-
 {% block title %}{{ parent() }} - Equipements{% endblock %}
 
 {% block body %}
@@ -19,6 +17,10 @@
             <thead>
                 <td>Nom</td>
                 <td>Description</td>
+                <td>Prix de base</td>
+                <td>Prix/gabarit</td>
+                <td>Prix/taille</td>
+                <td>Prix/version</td>
                 <td></td>
                 <td></td>
             </thead>
@@ -26,12 +28,17 @@
             <tbody>
             {% for stuffType in stuffTypes %}
                 <tr>
-                    <td>{{ stuffType.name }}</td>
-                    <td class="col-7">{{ stuffType.description }}</td>
-                    <td class="col-1">
+                    <td class="col-2">{{ stuffType.name }}</td>
+                    <td class="col-4">{{ stuffType.description }}</td>
+                    <td>{{ stuffType.price }}</td>
+                    <td>{{ stuffType.addedPriceByHeight }}</td>
+                    <td>{{ stuffType.addedPriceByWeight }}</td>
+                    <td>{{ stuffType.addedPriceByShape }}</td>
+
+                    <td>
                         <a href="{{ path('app_admin_stuff_stufftype_update', {id:stuffType.id, token:security_token}) }}"
                            class="btn btn-warning btn-block"><i class="fas fa-recycle"></i></a></td>
-                    <td class="col-1">
+                    <td>
                         <a href="{{ path('app_admin_stuff_stufftype_delete', {id:stuffType.id, token:security_token}) }}"
                            class="btn btn-danger btn-block"><i class="fas fa-trash-alt"></i></a></td>
                 </tr>

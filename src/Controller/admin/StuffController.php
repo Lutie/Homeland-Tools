@@ -64,7 +64,7 @@ class StuffController extends ToolboxController
      */
     public function deleteAction(Request $request, Stuff $stuff)
     {
-        $this->isTokenValid($request->query->get('token'), 'HOMELAND_TOKEN');
+        $this->isTokenValid($request->query->get('token'));
 
         $name = $stuff->getName();
         $em = $this->em();

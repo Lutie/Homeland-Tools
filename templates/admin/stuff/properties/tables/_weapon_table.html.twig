@@ -1,0 +1,91 @@
+
+<h4 class="text-center">Liste des équipements</h4>
+
+<div class="table-responsive table-hover">
+    <table class="table table-bordered table-striped">
+
+        <thead>
+        <td class="text-center smaller-text s-col-4">Nom</td>
+        <td class="text-center smaller-text s-col-1">
+            Catégorie<br>
+            Poids<br>
+            Prix
+        </td>
+        <td class="text-center smaller-text s-col-3">Particularités</td>
+        <td class="text-center smaller-text">Description</td>
+        <td class="text-center smaller-text s-col-4">
+            Score d'Attaque<br>
+            Score de Défense<br>
+            Score Tactique<br>
+        </td>
+        <td class="text-center smaller-text s-col-1">
+            Pénalités<br>
+            Solidité<br>
+            Allonge<br>
+        </td>
+        <td class="text-center smaller-text s-col-1">
+            <i class="fas fa-info-circle" data-toggle="tooltip" data-placement="top"
+               title="Autres bonus tel que la vitesse et la rapidité..."></i>
+        </td>
+        <td class="s-col-1"></td>
+        </thead>
+
+        <tbody class="smallest-text">
+        {% for stuff in stuffs %}
+            <tr>
+                <td class="text-center">
+                    <span class="normal-text">{{ stuff.name }}</span><br>
+                    <span class="light-text">{{ stuff.family }}</span>
+                </td>
+                <td class="text-center">
+                    {{ stuff.category }}<br>
+                    {{ stuff | stuffWeight }} <img class="stuff-icon" src="{{ asset('img/weight.png') }}"><br>
+                    {{ stuff | stuffPrice }} <img class="stuff-icon" src="{{ asset('img/price.png') }}">
+                </td>
+                <td class="text-center">
+                    {% for particularity in stuff.particularities %}
+                        {{ particularity.name }}
+                    {% endfor %}
+                </td>
+                <td class="text-center">
+                    <img class="stuff-icon" src="{{ asset('img/' ~ stuff.weaponGrip ~ 'weapon.png') }}"> {{ stuff.weaponGrip }}
+                    vs {{ stuff.weaponKind }}
+                    <img class="stuff-icon" src="{{ asset('img/' ~ stuff.weaponKind ~ 'weapon.png') }}">
+                    <br>
+                    {{ stuff.description }}
+                </td>
+                <td class="text-center">
+                    {{ stuff | stuffAttackScore }} <img class="stuff-icon" src="{{ asset('img/attackScore.png') }}"><br>
+                    {{ stuff | stuffDefenseScore }} <img class="stuff-icon" src="{{ asset('img/defenseScore.png') }}"><br>
+                    {{ stuff | stuffTacticalScore }} <img class="stuff-icon" src="{{ asset('img/tacticalScore.png') }}">
+                </td>
+                <td class="text-center">
+                    -{{ stuff | stuffPenalities }} <img class="stuff-icon" src="{{ asset('img/dice.png') }}"><br>
+                    +{{ stuff | stuffHardness }} <img class="stuff-icon" src="{{ asset('img/hardness.png') }}"><br>
+                    +{{ stuff | stuffRange }} <img class="stuff-icon" src="{{ asset('img/range.png') }}">
+                </td>
+                <td class="text-center">
+                    {% if stuff | stuffSpeed != 0 %}
+                        {{ stuff | stuffSpeed }} <img class="stuff-icon" src="{{ asset('img/speed.png') }}"><br>
+                    {% endif %}
+                    {% if stuff | stuffQuickness != 0 %}
+                        {{ stuff | stuffQuickness }} <img class="stuff-icon" src="{{ asset('img/quickness.png') }}"><br>
+                    {% endif %}
+                </td>
+                <td class="text-center">
+                    <a href="{{ path('app_admin_stuff_update', {id:stuff.id, token:security_token}) }}">
+                        <i class="fas fa-recycle"></i>
+                    </a>
+                    <br>
+                    <a href="{{ path('app_admin_stuff_delete', {id:stuff.id, token:security_token}) }}">
+                        <i class="fas fa-trash-alt"></i>
+                    </a>
+                </td>
+            </tr>
+        {% endfor %}
+        </tbody>
+    </table>
+    {% if stuffs == null %}
+        <p>Pas d'équipement à afficher !</p>
+    {% endif %}
+</div>

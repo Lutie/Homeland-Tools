@@ -54,7 +54,7 @@ class StuffParticularityController extends ToolboxController
      */
     public function deleteAction(Request $request, StuffParticularity $stuffParticularity)
     {
-        $this->isTokenValid($request->query->get('token'), 'HOMELAND_TOKEN');
+        $this->isTokenValid($request->query->get('token'));
 
         $name = $stuffParticularity->getName();
         $em = $this->em();

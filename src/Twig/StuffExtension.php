@@ -28,6 +28,9 @@ class StuffExtension extends AbstractExtension
             new TwigFilter('stuffTacticalScore', [$this, 'stuffTacticalScore']),
             new TwigFilter('stuffRange', [$this, 'stuffRange']),
             new TwigFilter('stuffPenalities', [$this, 'stuffPenalities']),
+            new TwigFilter('stuffHardness', [$this, 'stuffHardness']),
+            new TwigFilter('stuffSpeed', [$this, 'stuffSpeed']),
+            new TwigFilter('stuffQuickness', [$this, 'stuffQuickness']),
         ];
     }
 
@@ -66,6 +69,7 @@ class StuffExtension extends AbstractExtension
             $dice += $particularity->getEffectOnScore();
         }
         $fixe = $stuff->getCategory() + $stuff->getWeight() * 2;
+        $fixe += $stuff->getFamily()->isDangerous() * $stuff->getCategory();
         $rangeMin = $dice + $fixe;
         $rangeMax = $dice * self::D6_RANGE + $fixe;
         $rangeMid = $dice * self::D6_AVERAGE + $fixe;
@@ -114,6 +118,15 @@ class StuffExtension extends AbstractExtension
         return $range;
     }
 
+    public function stuffHardness(Stuff $stuff)
+    {
+        $hardness = $stuff->getCategory()*2 + $stuff->getWeight() + $stuff->getFamily()->getEffectOnHardness();
+        foreach($stuff->getParticularities() as $particularity) {
+            $hardness += $particularity->getEffectOnHardness();
+        }
+        return $hardness;
+    }
+
     public function stuffPenalities(Stuff $stuff)
     {
         $penalities = $stuff->getCategory() * 2 + $stuff->getHeight() + $stuff->getWeight();
@@ -122,6 +135,40 @@ class StuffExtension extends AbstractExtension
             $penalities += $particularity->getEffectOnPenality();
         }
         return $penalities;
+    }
+
+    public function stuffSpeed(Stuff $stuff)
+    {
+        $speed = 0;
+        $speed += $stuff->getFamily()->getEffectOnSpeed();
+        $speed += $stuff->getHeight(); // TODO : is this bonus alright ?
+        foreach($stuff->getParticularities() as $particularity) {
+            $speed += $particularity->getEffectOnSpeed();
+        }
+        return $speed;
+    }
+
+    public function stuffQuickness(Stuff $stuff)
+    {
+        $quickness = 0;
+        $quickness += $stuff->getFamily()->getEffectOnQuickness();
+        foreach($stuff->getParticularities() as $particularity) {
+            $quickness += $particularity->getEffectOnQuickness();
+        }
+        return $quickness;
+    }
+
+    public function stuffPenetration(Stuff $stuff)
+    {
+        $penetration = 0;
+        $penetration += $stuff->getFamily()->isMechanical() * $stuff->getCategory();
+        return $penetration;
+    }
+
+    public function stuffMagazine(Stuff $stuff)
+    {
+        $magazine = $stuff->getMagazine();
+        return $magazine;
     }
 
     // TODO : put this in a proper extension for all the fullStuff things

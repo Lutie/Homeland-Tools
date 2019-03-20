@@ -38,6 +38,8 @@
     <body>
         {% include('_menu.html.twig') %}
 
+        {% set security_token = csrf_token(security_token) %}
+
         <div class="frame position-relative">
             {% if is_granted('ROLE_ADMIN') %}
                 {% block admin %}<p class="admin-logo position-absolute">Admin</p>{% endblock %}

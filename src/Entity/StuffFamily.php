@@ -129,6 +129,16 @@ class StuffFamily
      */
     private $effectOnAdversaryDefenseScore = 0;
 
+    /**
+     * @ORM\Column(type="boolean")
+     */
+    private $isMechanical = false;
+
+    /**
+     * @ORM\Column(type="integer")
+     */
+    private $isDangerous = 0;
+
     public function __construct()
     {
         $this->stuff = new ArrayCollection();
@@ -140,7 +150,7 @@ class StuffFamily
     }
 
     /**
-     * @return mixed
+     * @return integer
      */
     public function getEffectOnScore()
     {
@@ -148,7 +158,7 @@ class StuffFamily
     }
 
     /**
-     * @param mixed $effectOnScore
+     * @param integer $effectOnScore
      */
     public function setEffectOnScore($effectOnScore): void
     {
@@ -156,7 +166,7 @@ class StuffFamily
     }
 
     /**
-     * @return mixed
+     * @return integer
      */
     public function getEffectOnAttackScore()
     {
@@ -164,7 +174,7 @@ class StuffFamily
     }
 
     /**
-     * @param mixed $effectOnAttackScore
+     * @param integer $effectOnAttackScore
      */
     public function setEffectOnAttackScore($effectOnAttackScore): void
     {
@@ -172,7 +182,7 @@ class StuffFamily
     }
 
     /**
-     * @return mixed
+     * @return integer
      */
     public function getEffectOnDefenseScore()
     {
@@ -180,7 +190,7 @@ class StuffFamily
     }
 
     /**
-     * @param mixed $effectOnDefenseScore
+     * @param integer $effectOnDefenseScore
      */
     public function setEffectOnDefenseScore($effectOnDefenseScore): void
     {
@@ -188,7 +198,7 @@ class StuffFamily
     }
 
     /**
-     * @return mixed
+     * @return integer
      */
     public function getEffectOnTacticalScore()
     {
@@ -196,7 +206,7 @@ class StuffFamily
     }
 
     /**
-     * @param mixed $effectOnTacticalScore
+     * @param integer $effectOnTacticalScore
      */
     public function setEffectOnTacticalScore($effectOnTacticalScore): void
     {
@@ -204,7 +214,7 @@ class StuffFamily
     }
 
     /**
-     * @return mixed
+     * @return integer
      */
     public function getEffectOnHardness()
     {
@@ -212,7 +222,7 @@ class StuffFamily
     }
 
     /**
-     * @param mixed $effectOnHardness
+     * @param integer $effectOnHardness
      */
     public function setEffectOnHardness($effectOnHardness): void
     {
@@ -220,7 +230,7 @@ class StuffFamily
     }
 
     /**
-     * @return mixed
+     * @return integer
      */
     public function getEffectOnReach()
     {
@@ -228,7 +238,7 @@ class StuffFamily
     }
 
     /**
-     * @param mixed $effectOnReach
+     * @param integer $effectOnReach
      */
     public function setEffectOnReach($effectOnReach): void
     {
@@ -236,7 +246,7 @@ class StuffFamily
     }
 
     /**
-     * @return mixed
+     * @return integer
      */
     public function getEffectOnSpeed()
     {
@@ -244,7 +254,7 @@ class StuffFamily
     }
 
     /**
-     * @param mixed $effectOnSpeed
+     * @param integer $effectOnSpeed
      */
     public function setEffectOnSpeed($effectOnSpeed): void
     {
@@ -252,7 +262,7 @@ class StuffFamily
     }
 
     /**
-     * @return mixed
+     * @return integer
      */
     public function getEffectOnQuickness()
     {
@@ -260,7 +270,7 @@ class StuffFamily
     }
 
     /**
-     * @param mixed $effectOnQuickness
+     * @param integer $effectOnQuickness
      */
     public function setEffectOnQuickness($effectOnQuickness): void
     {
@@ -268,7 +278,7 @@ class StuffFamily
     }
 
     /**
-     * @return mixed
+     * @return integer
      */
     public function getEffectOnPrice()
     {
@@ -276,7 +286,7 @@ class StuffFamily
     }
 
     /**
-     * @param mixed $effectOnPrice
+     * @param integer $effectOnPrice
      */
     public function setEffectOnPrice($effectOnPrice): void
     {
@@ -284,7 +294,7 @@ class StuffFamily
     }
 
     /**
-     * @return mixed
+     * @return integer
      */
     public function getEffectOnWeight()
     {
@@ -292,7 +302,7 @@ class StuffFamily
     }
 
     /**
-     * @param mixed $effectOnWeight
+     * @param integer $effectOnWeight
      */
     public function setEffectOnWeight($effectOnWeight): void
     {
@@ -300,7 +310,7 @@ class StuffFamily
     }
 
     /**
-     * @return mixed
+     * @return integer
      */
     public function getEffectOnPenality()
     {
@@ -308,7 +318,7 @@ class StuffFamily
     }
 
     /**
-     * @param mixed $effectOnPenality
+     * @param integer $effectOnPenality
      */
     public function setEffectOnPenality($effectOnPenality): void
     {
@@ -316,7 +326,7 @@ class StuffFamily
     }
 
     /**
-     * @return mixed
+     * @return integer
      */
     public function getEffectOnCounterAttackScore()
     {
@@ -324,7 +334,7 @@ class StuffFamily
     }
 
     /**
-     * @param mixed $effectOnCounterAttackScore
+     * @param integer $effectOnCounterAttackScore
      */
     public function setEffectOnCounterAttackScore($effectOnCounterAttackScore): void
     {
@@ -332,7 +342,7 @@ class StuffFamily
     }
 
     /**
-     * @return mixed
+     * @return integer
      */
     public function getEffectOnAdversaryDefenseScore()
     {
@@ -366,6 +376,38 @@ class StuffFamily
             $this->stuff->add($stuff);
         }
         return $this;
+    }
+
+    /**
+     * @return boolean
+     */
+    public function getIsMechanical()
+    {
+        return $this->isMechanical;
+    }
+
+    /**
+     * @param boolean $isMechanical
+     */
+    public function setIsMechanical($isMechanical): void
+    {
+        $this->isMechanical = $isMechanical;
+    }
+
+    /**
+     * @return integer
+     */
+    public function getIsDangerous()
+    {
+        return $this->isDangerous;
+    }
+
+    /**
+     * @param integer $isDangerous
+     */
+    public function setIsDangerous($isDangerous): void
+    {
+        $this->isDangerous = $isDangerous;
     }
 
 }

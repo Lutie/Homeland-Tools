@@ -1,68 +1,18 @@
 {% extends 'base.html.twig' %}
 
-{% set security_token = csrf_token('HOMELAND_TOKEN') %}
-
 {% block title %}{{ parent() }} - Equipements{% endblock %}
 
 {% block body %}
-    <h1> Equipements </h1>
+    <h1> Equipement(s) </h1>
 
     {% include('inc/vertical-line.html.twig') %}
     {% include('admin/stuff/_menu.html.twig') %}
     {% include('inc/vertical-line.html.twig') %}
 
-    <h4 class="text-center">Liste des équipements</h4>
-
-    <div class="table-responsive table-hover">
-        <table class="table table-bordered table-striped">
-
-            <thead>
-            <td>Nom</td>
-            <td>Description</td>
-            <td class="text-center">
-                Score d'Attaque<br>
-                Score de Défense<br>
-                Score Tactique<br>
-            </td>
-            <td class="text-center">
-                Poids<br>
-                Pénalités<br>
-                Allonge<br>
-            </td>
-            <td class="text-center">Prix</td>
-            <td></td>
-            </thead>
-
-            <tbody>
-            {% for stuff in stuffs %}
-                <tr>
-                    <td>{{ stuff.name }}</td>
-                    <td>{{ stuff.description }}</td>
-                    <td class="text-center">
-                        {{ stuff | stuffAttackScore }} <img class="stuff-icon" src="{{ asset('img/attackScore.png') }}"><br>
-                        {{ stuff | stuffDefenseScore }} <img class="stuff-icon" src="{{ asset('img/defenseScore.png') }}"><br>
-                        {{ stuff | stuffTacticalScore }} <img class="stuff-icon" src="{{ asset('img/tacticalScore.png') }}">
-                    </td>
-                    <td class="text-center">
-                        {{ stuff | stuffWeight }} <img class="stuff-icon" src="{{ asset('img/weight.png') }}"><br>
-                        {{ stuff | stuffPenalities }} <img class="stuff-icon" src="{{ asset('img/dice.png') }}"><br>
-                        {{ stuff | stuffRange }} <img class="stuff-icon" src="{{ asset('img/range.png') }}">
-                    </td>
-                    <td class="text-center">
-                        {{ stuff | stuffPrice }} <img class="stuff-icon" src="{{ asset('img/price.png') }}">
-                    </td>
-                    <td>
-                        <a href="{{ path('app_admin_stuff_update', {id:stuff.id, token:security_token}) }}"
-                           class="btn btn-warning btn-block"><i class="fas fa-recycle"></i></a>
-                        <a href="{{ path('app_admin_stuff_delete', {id:stuff.id, token:security_token}) }}"
-                           class="btn btn-danger btn-block"><i class="fas fa-trash-alt"></i></a></td>
-                </tr>
-            {% endfor %}
-            </tbody>
-        </table>
-        {% if stuffs == null %}
-            <p>Pas d'équipement à afficher !</p>
-        {% endif %}
-    </div>
+    {% include('admin/stuff/properties/tables/_weapon_table.html.twig') %}
+    {# include('admin/stuff/properties/tables/_armor_table.html.twig') #}
+    {# include('admin/stuff/properties/tables/_accessory_table.html.twig') #}
+    {# include('admin/stuff/properties/tables/_tools_table.html.twig') #}
+    {# include('admin/stuff/properties/tables/_items_table.html.twig') #}
 
 {% endblock %}

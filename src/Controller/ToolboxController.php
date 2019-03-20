@@ -7,8 +7,10 @@ use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 class ToolboxController extends AbstractController
 {
 
-    public function isTokenValid($token, $intention)
+    public function isTokenValid($token)
     {
+        $intention = getenv('SECURITY_TOKEN');
+
         if ($token === null) {
             throw $this->createNotFoundException();
         }

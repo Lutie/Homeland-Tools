@@ -54,7 +54,7 @@ class StuffFamilyController extends ToolboxController
      */
     public function deleteAction(Request $request, StuffFamily $stuffFamily)
     {
-        $this->isTokenValid($request->query->get('token'), 'HOMELAND_TOKEN');
+        $this->isTokenValid($request->query->get('token'));
 
         $name = $stuffFamily->getName();
         $em = $this->em();

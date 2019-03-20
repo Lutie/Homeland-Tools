@@ -2,6 +2,7 @@
 
 namespace App\Form;
 
+use Doctrine\DBAL\Types\BooleanType;
 use Symfony\Component\Form\AbstractType;
 use Symfony\Component\Form\Extension\Core\Type\IntegerType;
 use Symfony\Component\Form\Extension\Core\Type\TextType;
@@ -58,6 +59,12 @@ class StuffFamilyType extends AbstractType
             ])
             ->add('effectOnAdversaryDefenseScore', IntegerType::class, [
                 'label' => 'Score adverse en Défense',
+            ])
+            ->add('isDangerous', IntegerType::class, [
+                'label' => 'Dangerosité',
+            ])
+            ->add('isMechanical', BooleanType::class, [
+                'label' => 'Mécanique ?',
             ])
         ;
     }

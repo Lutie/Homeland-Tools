@@ -32,6 +32,12 @@ class StuffType extends AbstractType
             ->add('addedPriceByShape', IntegerType::class, [
                 'label' => 'Prix si allégé/renforcé',
             ])
+            ->add('magazineCapacity', IntegerType::class, [
+                'label' => 'Magasin (si munition)',
+            ])
+            ->add('addedMagazineByCategory', IntegerType::class, [
+                'label' => 'Magasin par catégorie',
+            ])
         ;
     }
 
