@@ -8,6 +8,7 @@ use App\Entity\StuffFamily;
 use App\Entity\StuffParticularity;
 use App\Entity\StuffType;
 use App\Form\NewStuffType;
+use Symfony\Component\HttpFoundation\File\Exception\FileException;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\Routing\Annotation\Route;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Security;
@@ -44,6 +45,13 @@ class StuffController extends ToolboxController
         $form->handleRequest($request);
 
         if ($form->isSubmitted() && $form->isValid()) {
+            $file = $stuff->getImg();
+
+            $fileName = $this->generateUniqueFileName().'.'.$file->guessExtension();
+            $file->move($this->getParameter('stuff_image'), $fileName);
+
+            $stuff->setImg($fileName);
+
             $em = $this->em();
             $em->persist($stuff);
             $em->flush();

@@ -90,6 +90,12 @@ class Stuff
      */
     private $weaponKind;
 
+    /**
+     * @ORM\Column(type="string", nullable=true)
+     * @Assert\File(maxSize = "1m", mimeTypes={ "image/jpeg", "image/png" })
+     */
+    private $img;
+
     public function __construct()
     {
         $this->particularities = new ArrayCollection();
@@ -290,6 +296,22 @@ class Stuff
         }
 
         return $this;
+    }
+
+    /**
+     * @return string
+     */
+    public function getImg()
+    {
+        return $this->img;
+    }
+
+    /**
+     * @param string $img
+     */
+    public function setImg($img): void
+    {
+        $this->img = $img;
     }
 
 }

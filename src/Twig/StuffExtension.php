@@ -31,6 +31,8 @@ class StuffExtension extends AbstractExtension
             new TwigFilter('stuffHardness', [$this, 'stuffHardness']),
             new TwigFilter('stuffSpeed', [$this, 'stuffSpeed']),
             new TwigFilter('stuffQuickness', [$this, 'stuffQuickness']),
+            new TwigFilter('stuffPenetration', [$this, 'stuffPenetration']),
+            new TwigFilter('stuffMagazine', [$this, 'stuffMagazine']),
         ];
     }
 
@@ -69,12 +71,12 @@ class StuffExtension extends AbstractExtension
             $dice += $particularity->getEffectOnScore();
         }
         $fixe = $stuff->getCategory() + $stuff->getWeight() * 2;
-        $fixe += $stuff->getFamily()->isDangerous() * $stuff->getCategory();
+        $fixe += $stuff->getFamily()->getIsDangerous() * $stuff->getCategory();
         $rangeMin = $dice + $fixe;
         $rangeMax = $dice * self::D6_RANGE + $fixe;
         $rangeMid = $dice * self::D6_AVERAGE + $fixe;
 
-        return $dice . "d6+" . $fixe . " (" . $rangeMin . "~" . $rangeMax . ") (~". $rangeMid . ")";
+        return $dice . "d6+" . $fixe . " (" . $rangeMin . "~" . $rangeMax . ") (~". number_format($rangeMid, 0) . ")";
     }
 
     public function stuffDefenseScore(Stuff $stuff)
@@ -90,7 +92,7 @@ class StuffExtension extends AbstractExtension
         $rangeMax = $dice * self::D6_RANGE + $fixe;
         $rangeMid = $dice * self::D6_AVERAGE + $fixe;
 
-        return $dice . "d6+" . $fixe . " (" . $rangeMin . "~" . $rangeMax . ") (~". $rangeMid . ")";
+        return $dice . "d6+" . $fixe . " (" . $rangeMin . "~" . $rangeMax . ") (~". number_format($rangeMid, 0) . ")";
     }
 
     public function stuffTacticalScore(Stuff $stuff)
@@ -106,7 +108,7 @@ class StuffExtension extends AbstractExtension
         $rangeMax = $dice * self::D6_RANGE + $fixe;
         $rangeMid = $dice * self::D6_AVERAGE + $fixe;
 
-        return $dice . "d6+" . $fixe . " (" . $rangeMin . "~" . $rangeMax . ") (~". $rangeMid . ")";
+        return $dice . "d6+" . $fixe . " (" . $rangeMin . "~" . $rangeMax . ") (~". number_format($rangeMid, 0) . ")";
     }
 
     public function stuffRange(Stuff $stuff)
@@ -161,13 +163,14 @@ class StuffExtension extends AbstractExtension
     public function stuffPenetration(Stuff $stuff)
     {
         $penetration = 0;
-        $penetration += $stuff->getFamily()->isMechanical() * $stuff->getCategory();
+        $penetration += $stuff->getFamily()->getIsMechanical() * $stuff->getCategory();
         return $penetration;
     }
 
     public function stuffMagazine(Stuff $stuff)
     {
-        $magazine = $stuff->getMagazine();
+        $magazine = $stuff->getType()->getMagazineCapacity();
+        $magazine -= $stuff->getCategory() * $stuff->getType()->getAddedMagazineByCategory();
         return $magazine;
     }
 

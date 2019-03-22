@@ -71,6 +71,12 @@
                     {% if stuff | stuffQuickness != 0 %}
                         {{ stuff | stuffQuickness }} <img class="stuff-icon" src="{{ asset('img/quickness.png') }}"><br>
                     {% endif %}
+                    {% if stuff | stuffPenetration != 0 %}
+                        {{ stuff | stuffPenetration }} <img class="stuff-icon" src="{{ asset('img/penetration.png') }}"><br>
+                    {% endif %}
+                    {% if stuff | stuffMagazine != 0 %}
+                        {{ stuff | stuffMagazine }} <img class="stuff-icon" src="{{ asset('img/magazine.png') }}"><br>
+                    {% endif %}
                 </td>
                 <td class="text-center">
                     <a href="{{ path('app_admin_stuff_update', {id:stuff.id, token:security_token}) }}">
