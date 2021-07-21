@@ -59,6 +59,9 @@ class StuffParticularityType extends AbstractType
             ->add('effectOnAdversaryDefenseScore', IntegerType::class, [
                 'label' => 'Score adverse en Défense',
             ])
+            ->add('effectOnMagazine', IntegerType::class, [
+                'label' => 'Modificateur de Chargeur/Magasin',
+            ])
         ;
     }
 

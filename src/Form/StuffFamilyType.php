@@ -4,6 +4,7 @@ namespace App\Form;
 
 use Doctrine\DBAL\Types\BooleanType;
 use Symfony\Component\Form\AbstractType;
+use Symfony\Component\Form\Extension\Core\Type\ChoiceType;
 use Symfony\Component\Form\Extension\Core\Type\IntegerType;
 use Symfony\Component\Form\Extension\Core\Type\TextType;
 use Symfony\Component\Form\FormBuilderInterface;
@@ -63,8 +64,18 @@ class StuffFamilyType extends AbstractType
             ->add('isDangerous', IntegerType::class, [
                 'label' => 'Dangerosité',
             ])
-            ->add('isMechanical', BooleanType::class, [
+            ->add('isMechanical', ChoiceType::class, [
+                'choices' => [
+                    'Non' => false,
+                    'Oui' => true
+                ],
                 'label' => 'Mécanique ?',
+            ])
+            ->add('magazineCapacity', IntegerType::class, [
+                'label' => 'Magasin (si munition)',
+            ])
+            ->add('addedMagazineByCategory', IntegerType::class, [
+                'label' => 'Magasin par catégorie',
             ])
         ;
     }

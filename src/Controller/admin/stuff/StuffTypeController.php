@@ -38,7 +38,7 @@ class StuffTypeController extends ToolboxController
             $em->persist($stuffType);
             $em->flush();
 
-            $this->addFlash('success', 'Le type "' . $stuffType->getName() . '" a été créé/mis à jour.');
+            $this->addFlash('success', 'Le type "' . $stuffType->getName() . '" a été créé.');
 
             return $this->redirectToRoute('app_admin_stuff_index_properties');
         }
@@ -74,6 +74,16 @@ class StuffTypeController extends ToolboxController
         $form = $this->createForm(StuffTypeForm::class, $stuffType);
 
         $form->handleRequest($request);
+
+        if ($form->isSubmitted() && $form->isValid()) {
+            $em = $this->getDoctrine()->getManager();
+            $em->persist($stuffType);
+            $em->flush();
+
+            $this->addFlash('success', 'Le type "' . $stuffType->getName() . '" a été mis à jour.');
+
+            return $this->redirectToRoute('app_admin_stuff_index_properties');
+        }
 
         return $this->render('admin/stuff/properties/type/edit.html.twig', [
             'form' => $form->createView(),

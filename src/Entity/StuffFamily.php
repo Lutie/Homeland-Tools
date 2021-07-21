@@ -130,6 +130,20 @@ class StuffFamily
     private $effectOnAdversaryDefenseScore = 0;
 
     /**
+     * @ORM\Column(type="integer", length=10)
+     * @Assert\NotNull()
+     * @Assert\Type("integer")
+     */
+    private $magazineCapacity = 0;
+
+    /**
+     * @ORM\Column(type="integer", length=10)
+     * @Assert\NotNull()
+     * @Assert\Type("integer")
+     */
+    private $addedMagazineByCategory = 0;
+
+    /**
      * @ORM\Column(type="boolean")
      */
     private $isMechanical = false;
@@ -376,6 +390,38 @@ class StuffFamily
             $this->stuff->add($stuff);
         }
         return $this;
+    }
+
+    /**
+     * @return mixed
+     */
+    public function getMagazineCapacity()
+    {
+        return $this->magazineCapacity;
+    }
+
+    /**
+     * @param mixed $magazineCapacity
+     */
+    public function setMagazineCapacity($magazineCapacity): void
+    {
+        $this->magazineCapacity = $magazineCapacity;
+    }
+
+    /**
+     * @return mixed
+     */
+    public function getAddedMagazineByCategory()
+    {
+        return $this->addedMagazineByCategory;
+    }
+
+    /**
+     * @param mixed $addedMagazineByCategory
+     */
+    public function setAddedMagazineByCategory($addedMagazineByCategory): void
+    {
+        $this->addedMagazineByCategory = $addedMagazineByCategory;
     }
 
     /**

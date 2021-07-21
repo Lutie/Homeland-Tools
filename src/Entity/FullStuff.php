@@ -13,7 +13,6 @@ use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 class FullStuff extends AbstractController
 
 {
-
     use IdTrait;
 
     use NameTrait;

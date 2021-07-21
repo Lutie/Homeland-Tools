@@ -1,9 +1,37 @@
 {% extends 'base.html.twig' %}
 
-{% block body %}
+{% block bodyded %}
 
     <h1> Terre Natale </h1>
 
     <p>Site en développement...</p>
+
+{% endblock %}
+
+{% block body %}
+
+    {% set align = 'left' %}
+
+    {% for data in datas %}
+        <div class="row no-spacing">
+        {% if data.type == 'title' %}
+                <h1 class="offset-3 col-6 text-center title">
+                    {{ data.text }}
+                </h1>
+            {% set align = 'left' %}
+        {% endif %}
+        {% if data.type == 'bloc' %}
+            <div class="col-6 bloc bloc-line" style="height: 100px;">
+                {{ align == 'left' ? data.img : data.text }}
+                <span class="blue-dot"></span>
+                <span class="text-line-{{ align }}"></span>
+            </div>
+            <div class="col-6 bloc" style="height: 100px">
+                {{ align == 'left' ? data.text : data.img }}
+            </div>
+            {% set align = align == 'left' ? 'right' : 'left' %}
+        {% endif %}
+        </div>
+    {% endfor %}
 
 {% endblock %}

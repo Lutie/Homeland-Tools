@@ -71,7 +71,8 @@ class NewStuffType extends AbstractType
             ->add('particularities', EntityType::class, [
                 'label' => 'Particularités',
                 'class' => StuffParticularity::class,
-                'multiple' => true
+                'multiple' => true,
+                'required' => false
             ])
             ->add('weaponGrip', ChoiceType::class, [
                 'choices' => [
@@ -110,6 +111,7 @@ class NewStuffType extends AbstractType
             ])
             ->add('img', FileType::class, [
                 'label' => 'Image (facultatif)',
+                'required' => false
             ])
         ;
     }

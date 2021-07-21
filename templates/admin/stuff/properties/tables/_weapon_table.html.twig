@@ -43,6 +43,7 @@
                     {{ stuff | stuffPrice }} <img class="stuff-icon" src="{{ asset('img/price.png') }}">
                 </td>
                 <td class="text-center">
+                    <span class="sub-text">(Taille {{ stuff.height }} / Gabarit {{ stuff.weight }} / Forme {{ stuff.shape }})</span>
                     {% for particularity in stuff.particularities %}
                         {{ particularity.name }}
                     {% endfor %}

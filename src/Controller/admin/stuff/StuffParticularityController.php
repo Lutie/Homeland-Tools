@@ -38,7 +38,7 @@ class StuffParticularityController extends ToolboxController
             $em->persist($stuffParticularity);
             $em->flush();
 
-            $this->addFlash('success', 'La particularité "' . $stuffParticularity->getName() . '" a été créée/mise à jour.');
+            $this->addFlash('success', 'La particularité "' . $stuffParticularity->getName() . '" a été créée.');
 
             return $this->redirectToRoute('app_admin_stuff_index_properties');
         }
@@ -71,9 +71,19 @@ class StuffParticularityController extends ToolboxController
      */
     public function updateAction(Request $request, StuffParticularity $stuffParticularity)
     {
-        $form = $this->createForm(StuffParticularity::class, $stuffParticularity);
+        $form = $this->createForm(StuffParticularityType::class, $stuffParticularity);
 
         $form->handleRequest($request);
+
+        if ($form->isSubmitted() && $form->isValid()) {
+            $em = $this->getDoctrine()->getManager();
+            $em->persist($stuffParticularity);
+            $em->flush();
+
+            $this->addFlash('success', 'La particularité "' . $stuffParticularity->getName() . '" a été mise à jour.');
+
+            return $this->redirectToRoute('app_admin_stuff_index_properties');
+        }
 
         return $this->render('admin/stuff/properties/particularity/edit.html.twig', [
             'form' => $form->createView(),

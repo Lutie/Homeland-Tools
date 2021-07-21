@@ -33,16 +33,6 @@ class StuffType
     /**
      * @ORM\Column(type="integer", length=10)
      */
-    private $magazineCapacity = 0;
-
-    /**
-     * @ORM\Column(type="integer", length=10)
-     */
-    private $addedMagazineByCategory = 0;
-
-    /**
-     * @ORM\Column(type="integer", length=10)
-     */
     private $addedPriceByWeight = 0;
 
     /**
@@ -122,38 +112,6 @@ class StuffType
     public function setAddedPriceByShape($addedPriceByShape): void
     {
         $this->addedPriceByShape = $addedPriceByShape;
-    }
-
-    /**
-     * @return mixed
-     */
-    public function getMagazineCapacity()
-    {
-        return $this->magazineCapacity;
-    }
-
-    /**
-     * @param mixed $magazineCapacity
-     */
-    public function setMagazineCapacity($magazineCapacity): void
-    {
-        $this->magazineCapacity = $magazineCapacity;
-    }
-
-    /**
-     * @return mixed
-     */
-    public function getAddedMagazineByCategory()
-    {
-        return $this->addedMagazineByCategory;
-    }
-
-    /**
-     * @param mixed $addedMagazineByCategory
-     */
-    public function setAddedMagazineByCategory($addedMagazineByCategory): void
-    {
-        $this->addedMagazineByCategory = $addedMagazineByCategory;
     }
 
 }

@@ -122,6 +122,14 @@ class StuffParticularity
      */
     private $effectOnAdversaryDefenseScore = 0;
 
+    /**
+     * @ORM\Column(type="integer", length=3)
+     * @Assert\NotNull()
+     * @Assert\Type("integer")
+     * @Assert\Range( min = -3, max = 3 )
+     */
+    private $effectOnMagazine = 0;
+
     public function __toString()
     {
         return (string)$this->getName();
@@ -333,6 +341,22 @@ class StuffParticularity
     public function setEffectOnAdversaryDefenseScore($effectOnAdversaryDefenseScore): void
     {
         $this->effectOnAdversaryDefenseScore = $effectOnAdversaryDefenseScore;
+    }
+
+    /**
+     * @return mixed
+     */
+    public function getEffectOnMagazine()
+    {
+        return $this->effectOnMagazine;
+    }
+
+    /**
+     * @param mixed $effectOnMagazine
+     */
+    public function setEffectOnMagazine($effectOnMagazine): void
+    {
+        $this->effectOnMagazine = $effectOnMagazine;
     }
 
 }

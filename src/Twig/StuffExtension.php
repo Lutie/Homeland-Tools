@@ -11,7 +11,7 @@ use Twig\TwigFilter;
 class StuffExtension extends AbstractExtension
 {
     const QUALITY_PRICE_MOD = [
-        -1 => .25, -1 => .33, -1 => .5, -1 => .66, -1 => .75,
+        -5 => .25, -4 => .33, -3 => .5, -2 => .66, -1 => .75,
         0 => 1, 1 => 3, 2 => 6, 3 => 12, 4 => 25, 5 => 50, 6 => 100
     ];
 
@@ -169,8 +169,11 @@ class StuffExtension extends AbstractExtension
 
     public function stuffMagazine(Stuff $stuff)
     {
-        $magazine = $stuff->getType()->getMagazineCapacity();
-        $magazine -= $stuff->getCategory() * $stuff->getType()->getAddedMagazineByCategory();
+        $magazine = $stuff->getFamily()->getMagazineCapacity();
+        $magazine -= $stuff->getCategory() * $stuff->getFamily()->getAddedMagazineByCategory();
+        foreach($stuff->getParticularities() as $particularity) {
+            $magazine += $particularity->getEffectOnMagazine();
+        }
         return $magazine;
     }
 

@@ -46,11 +46,11 @@ class StuffController extends ToolboxController
 
         if ($form->isSubmitted() && $form->isValid()) {
             $file = $stuff->getImg();
-
-            $fileName = $this->generateUniqueFileName().'.'.$file->guessExtension();
-            $file->move($this->getParameter('stuff_image'), $fileName);
-
-            $stuff->setImg($fileName);
+            if($file) {
+                $fileName = $this->generateUniqueFileName().'.'.$file->guessExtension();
+                $file->move($this->getParameter('stuff_image'), $fileName);
+                $stuff->setImg($fileName);
+            }
 
             $em = $this->em();
             $em->persist($stuff);
